@@ -1,0 +1,15 @@
+.filter_label {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  margin-bottom: 10px;
+  width: 200px;
+}
+
+.filter_name {
+  margin-bottom: 10px;
+}
+
+.filter_input:focus {
+  outline-color: skyblue;
+}

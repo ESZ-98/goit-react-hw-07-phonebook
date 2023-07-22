@@ -1,0 +1,22 @@
+.contact_element {
+  align-items: center;
+  gap: 10px;
+}
+
+.contact_name {
+  font-weight: 600;
+}
+
+.contact_button {
+  background-color: white;
+  cursor: pointer;
+  border-color: lightgray;
+  border-radius: 4px;
+  border-style: solid;
+  outline: none;
+  margin-left: 10px;
+}
+
+.contact_button:active {
+  background-color: cornflowerblue;
+}
