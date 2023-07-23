@@ -2,8 +2,9 @@ import PropTypes from 'prop-types';
 import React, { useState } from 'react';
 import css from './ContactForm.module.css';
 import { useDispatch, useSelector } from 'react-redux';
-import { addContact } from 'redux/contactsSlice';
 import selectors from 'redux/selectors';
+import operations from 'redux/operations';
+import { nanoid } from '@reduxjs/toolkit';
 
 const ContactForm = () => {
   const dispatch = useDispatch();
@@ -35,7 +36,8 @@ const ContactForm = () => {
     if (doesContactExist) {
       alert(`Contact already exists!`);
     } else {
-      dispatch(addContact(name, number));
+      let contact = { name: name, number: number, id: nanoid() };
+      dispatch(operations.postContactOnList(contact));
     }
   };
 

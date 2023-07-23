@@ -4,14 +4,17 @@ import ContactList from './ContactList/ContactList';
 import Filter from './Filter/Filter';
 import { nanoid } from 'nanoid';
 import { useDispatch, useSelector } from 'react-redux';
-import { deleteContacts } from '../redux/contactsSlice';
 import { setFilter } from '../redux/filterSlice';
 import selectors from '../redux/selectors';
+import operations from '../redux/operations';
+import { selectLoading, selectError } from '../redux/selectors';
 
 export const App = () => {
   const dispatch = useDispatch();
   const contacts = useSelector(selectors.getContacts);
   const filter = useSelector(selectors.getFilter);
+  const error = useSelector(selectError);
+  const isLoading = useSelector(selectLoading);
 
   const submitForm = ({ name, number }) => {
     const newContact = { name, number, id: nanoid() };
@@ -29,7 +32,7 @@ export const App = () => {
   };
 
   const deleteContact = id => {
-    dispatch(deleteContacts(id));
+    dispatch(operations.deleteContact(id));
   };
 
   const getFilteredContacts = (contacts, filter) => {
@@ -39,8 +42,8 @@ export const App = () => {
   };
 
   useEffect(() => {
-    localStorage.setItem('contacts', JSON.stringify(contacts));
-  }, [contacts]);
+    dispatch(operations.fetchDisplayContacts());
+  }, [dispatch]);
 
   return (
     <div
@@ -57,6 +60,7 @@ export const App = () => {
         contacts={getFilteredContacts(contacts, filter)}
         onDeleteContact={deleteContact}
       />
+      {isLoading && !error && <b>Request in progress...</b>}
     </div>
   );
 };
